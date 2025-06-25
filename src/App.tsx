@@ -1199,19 +1199,19 @@ const App: React.FC = () => {
                     <p className="text-lg"><strong>Duración:</strong> {finalSanacionCR.duracionDias} días</p>
                 </div>
             </div>
-            <div className="mt-8 text-center">
-                <button
-                    onClick={handleExportCartaRadionica}
-                    className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg shadow-md transition duration-150 ease-in-out text-lg"
-                >
-                    Exportar Carta
-                </button>
-                <button
-                    onClick={() => exportCartaRadionicaPDF(diagnostico)}
-                    className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-150 ease-in-out text-lg ml-4"
-                >
-                    Exportar PDF
-                </button>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-0 sm:gap-4 mb-8">
+              <button
+                onClick={handleExportCartaRadionica}
+                className="px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg shadow-md transition duration-150 ease-in-out text-lg mb-3 sm:mb-0"
+              >
+                Exportar Carta
+              </button>
+              <button
+                onClick={() => exportCartaRadionicaPDF(diagnostico)}
+                className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-150 ease-in-out text-lg"
+              >
+                Exportar PDF
+              </button>
             </div>
             <p className="mt-10 text-center text-sm text-slate-500">
                 {TITULO_APP} | Morphic Field Therapy® | 2025 <br />
