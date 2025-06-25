@@ -1,0 +1,6 @@
+{
+  "name": "Manual de Diagnóstico Radiónico para Animales",
+  "description": "Una aplicación web interactiva para guiar a través del proceso de diagnóstico radiónico para animales. Incluye identificación de conflictos, influencias del lugar, necesidades biológicas, un módulo completo para la evaluación y tratamiento de trauma animal (Versión 4.0 - Edición Trauma Integrada), y sugerencias de recursos de sanación.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
