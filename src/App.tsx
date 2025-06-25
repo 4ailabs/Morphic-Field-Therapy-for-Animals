@@ -16,6 +16,7 @@ import {
 import NavButtons from './components/shared/NavButtons';
 import TraumaScreeningStep from './components/trauma/TraumaScreeningStep';
 import TraumaIdentificacionStep from './components/trauma/TraumaIdentificacionStep';
+import jsPDF from 'jspdf';
 
 
 const initialAnimalInfo: AnimalInfo = {
@@ -98,6 +99,88 @@ const AnimatedStep: React.FC<{ children: React.ReactNode, stepKey: string }> = (
   );
 };
 
+const ayudaPorPaso: Record<string, string> = {
+  INICIO: 'Bienvenido. Haz clic en "Comenzar Diagnóstico" para iniciar el protocolo.',
+  ANIMAL_INFO: 'Completa los datos básicos del animal. El número radiónico es fundamental para el seguimiento.',
+  TRAUMA_SCREENING: 'Responde si el animal ha experimentado trauma significativo. Esto guiará el resto del diagnóstico.',
+  TRAUMA_IDENTIFICACION: 'Selecciona los tipos de trauma identificados y su nivel de impacto. Completa la cronología si aplica.',
+  DIAGNOSTICO_INSTINTOS: 'Marca los instintos bloqueados y ajusta el nivel de bloqueo. Si el bloqueo es alto, indica la causa principal.',
+  CONFLICTOS_DUENO: 'Marca los conflictos activos con el dueño y ajusta su intensidad.',
+  INFLUENCIA_LUGAR: 'Selecciona memorias del lugar y zonas del hogar que puedan estar afectando al animal.',
+  NECESIDADES_BIOLOGICAS: 'Evalúa si hay necesidades biológicas no satisfechas y ajusta el nivel de carencia.',
+  RECURSOS_SANACION_FLORES: 'Selecciona las flores de Bach recomendadas según el diagnóstico.',
+  RECURSOS_SANACION_COMANDOS: 'Selecciona los comandos radiónicos específicos recomendados.',
+  RECURSOS_SANACION_PROTOCOLO: 'Redacta el comando integrado y define la duración del trabajo.',
+  CARTA_RADIONICA: 'Aquí puedes exportar la carta radiónica con todos los datos del diagnóstico.'
+};
+
+const AyudaModal: React.FC<{ open: boolean, onClose: () => void, texto: string }> = ({ open, onClose, texto }) => {
+  if (!open) return null;
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+      <div className="bg-slate-900 border border-sky-500 rounded-xl shadow-2xl p-6 max-w-md w-full relative animate-fade-in">
+        <button onClick={onClose} className="absolute top-2 right-2 text-sky-400 hover:text-sky-200 text-2xl font-bold">×</button>
+        <h2 className="text-xl font-semibold text-sky-400 mb-3 flex items-center gap-2"><span className="text-2xl">❓</span> Ayuda</h2>
+        <p className="text-base text-slate-200 whitespace-pre-line">{texto}</p>
+      </div>
+    </div>
+  );
+};
+
+const exportCartaRadionicaPDF = (diagnostico: DiagnosticoCompleto) => {
+  const doc = new jsPDF();
+  let y = 15;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(18);
+  doc.setTextColor(36, 165, 255); // sky-400
+  doc.text('Expediente Radiónico Animal', 105, y, { align: 'center' });
+  y += 10;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
+  doc.setTextColor(0,0,0);
+  doc.text(`Fecha: ${new Date().toLocaleString()}`, 15, y);
+  y += 10;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(14);
+  doc.setTextColor(36, 165, 255);
+  doc.text('Datos Básicos del Animal', 15, y);
+  y += 8;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(0,0,0);
+  const info = diagnostico.animalInfo;
+  doc.text(`Número Radiónico: ${info.numeroRadionico || ''}`, 15, y); y+=6;
+  doc.text(`Nombre: ${info.nombre || ''}`, 15, y); y+=6;
+  doc.text(`Especie: ${info.especie || ''}`, 15, y); y+=6;
+  doc.text(`Raza/Subespecie: ${info.razaSubespecie || ''}`, 15, y); y+=6;
+  doc.text(`Edad: ${info.edad || ''}`, 15, y); y+=6;
+  doc.text(`Sexo: ${info.sexo || ''}`, 15, y); y+=6;
+  doc.text(`Estado Reproductivo: ${info.estadoReproductivo || ''}`, 15, y); y+=6;
+  doc.text(`Peso Aproximado: ${info.pesoAproximado || ''}`, 15, y); y+=6;
+  doc.text(`Características Distintivas: ${info.caracteristicasDistintivas || ''}`, 15, y); y+=6;
+  doc.text(`Tiempo con Dueño Actual: ${info.tiempoConDuenoActual || ''}`, 15, y); y+=6;
+  doc.text(`Ambiente Actual: ${info.ambienteActual || ''}`, 15, y); y+=6;
+  doc.text(`Historia Previa: ${info.historiaPrevia || ''}`, 15, y); y+=6;
+  doc.text(`Otros Animales en Casa: ${info.otrosAnimalesCasa || ''}`, 15, y); y+=6;
+  doc.text(`Cambios Recientes: ${info.cambiosRecientes || ''}`, 15, y); y+=10;
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(12);
+  doc.setTextColor(36, 165, 255);
+  doc.text('Para más detalles, consulta la versión digital.', 15, y);
+  y += 10;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(11);
+  doc.setTextColor(0,0,0);
+  doc.text('Contacto: contacto@institutocentrobioenergetica.com', 15, y); y+=6;
+  doc.text('Web: www.institutocentrobioenergetica.com', 15, y); y+=6;
+  // Leyenda al pie de página
+  doc.setFont('helvetica', 'italic');
+  doc.setFontSize(10);
+  doc.setTextColor(120, 120, 120);
+  doc.text('Versión 4.0 - Edición Trauma Integrada | Morphic Field Therapy® | 2025.', 105, 285, { align: 'center' });
+  doc.save(`Carta_Radionica_${info.nombre?.replace(/\s+/g, '_') || 'Animal'}_${new Date().toISOString().slice(0, 19).replace(/:/g, '-')}.pdf`);
+};
+
 const App: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Paso>(Paso.Inicio);
   const [diagnostico, setDiagnostico] = useState<DiagnosticoCompleto>(initialDiagnostico);
@@ -107,6 +190,7 @@ const App: React.FC = () => {
   const [busquedaFlor, setBusquedaFlor] = useState<string>('');
   const [filtroCategoriaComando, setFiltroCategoriaComando] = useState<string>('todos');
   const [busquedaComando, setBusquedaComando] = useState<string>('');
+  const [ayudaAbierta, setAyudaAbierta] = useState(false);
 
   const updateAnimalInfo = (data: Partial<AnimalInfo>) => {
     setDiagnostico(prev => ({ ...prev, animalInfo: { ...prev.animalInfo, ...data } }));
@@ -319,9 +403,14 @@ const App: React.FC = () => {
         second: '2-digit'
     });
 
-    let content = `${TITULO_APP}\n`;
-    content += `${VERSION_APP}\n`;
-    content += `=====================================\n`;
+    let content = '';
+    content += `=====================================
+`;
+    content += `Protocolo de Diagnóstico Radiónico para Animales
+`;
+    content += `=====================================
+
+`;
     content += `Fecha y Hora de Generación: ${fechaHora}\n`;
     content += `=====================================\n\n`;
 
@@ -412,6 +501,11 @@ const App: React.FC = () => {
     content += `------------------------------------\n`;
     content += `${TITULO_APP} | Morphic Field Therapy® | 2025\n`;
     content += `Desarrollado por: Dr. Miguel Ojeda Rios\n`;
+
+    // ... al final de la exportación .txt ...
+    content += `-------------------------------------\n`;
+    content += `Contacto: contacto@institutocentrobioenergetica.com\n`;
+    content += `Web: www.institutocentrobioenergetica.com\n`;
 
     const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
@@ -598,7 +692,7 @@ const App: React.FC = () => {
             <h1 className="text-5xl font-bold text-sky-400 mb-4">Protocolo de Diagnóstico Radiónico para Animales</h1>
             <p className="text-xl text-slate-300 mb-2">{VERSION_APP}</p>
             <p className="text-lg text-slate-400 mb-8">Desarrollado por: Dr. Miguel Ojeda Rios</p>
-            <p className="text-xl text-slate-300 mb-8">Bienvenido al asistente interactivo para el diagnóstico radiónico en animales, ahora con módulo de trauma integrado.</p>
+            <p className="text-xl text-slate-300 mb-8">{ayudaPorPaso[currentStep] || 'Ayuda no disponible para este paso.'}</p>
             <button
               onClick={() => setCurrentStep(Paso.AnimalInfo)} 
               className="px-8 py-4 bg-sky-500 hover:bg-sky-600 text-white font-bold rounded-lg shadow-xl transition duration-150 ease-in-out text-xl"
@@ -1006,6 +1100,9 @@ const App: React.FC = () => {
                 n.especieAnimal.includes('Otro')
             );
 
+        // Determinar el texto de ayuda según el paso actual
+        const ayudaTexto = ayudaPorPaso[currentStep] || 'Ayuda no disponible para este paso.';
+
         return (
           <div className="p-6 bg-slate-800 rounded-xl shadow-2xl">
             <h2 className="text-4xl font-bold text-center text-sky-400 mb-8">Expediente Radiónico Animal</h2>
@@ -1107,6 +1204,12 @@ const App: React.FC = () => {
                 >
                     Exportar Carta
                 </button>
+                <button
+                    onClick={() => exportCartaRadionicaPDF(diagnostico)}
+                    className="px-6 py-3 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md transition duration-150 ease-in-out text-lg ml-4"
+                >
+                    Exportar PDF
+                </button>
             </div>
             <p className="mt-10 text-center text-sm text-slate-500">
                 {TITULO_APP} | Morphic Field Therapy® | 2025 <br />
@@ -1124,7 +1227,16 @@ const App: React.FC = () => {
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center py-10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-slate-100">
-      <div className="container mx-auto p-4 md:p-0 w-full max-w-3xl">
+      <div className="container mx-auto p-4 md:p-0 w-full max-w-3xl relative">
+        {/* Botón de ayuda contextual */}
+        <button
+          onClick={() => setAyudaAbierta(true)}
+          className="absolute top-2 right-2 z-20 bg-sky-700 hover:bg-sky-600 text-white rounded-full w-10 h-10 flex items-center justify-center shadow-lg focus:outline-none focus:ring-2 focus:ring-sky-400"
+          aria-label="Ayuda contextual"
+        >
+          <span className="text-2xl font-bold">?</span>
+        </button>
+        <AyudaModal open={ayudaAbierta} onClose={() => setAyudaAbierta(false)} texto={ayudaPorPaso[currentStep] || 'Ayuda no disponible para este paso.'} />
         {/* Botón Volver al Inicio - visible en todos los pasos excepto el inicio */}
         {currentStep !== Paso.Inicio && (
           <div className="mb-6 text-center">
