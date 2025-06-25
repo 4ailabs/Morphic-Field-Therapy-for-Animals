@@ -1105,9 +1105,6 @@ const App: React.FC = () => {
                 n.especieAnimal.includes('Otro')
             );
 
-        // Determinar el texto de ayuda según el paso actual
-        const ayudaTexto = ayudaPorPaso[currentStep] || 'Ayuda no disponible para este paso.';
-
         return (
           <div className="p-6 bg-slate-800 rounded-xl shadow-2xl">
             <h2 className="text-4xl font-bold text-center text-sky-400 mb-8">Expediente Radiónico Animal</h2>
