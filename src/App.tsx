@@ -535,18 +535,18 @@ const App: React.FC = () => {
       <label htmlFor="numeroRadionico" className="block text-base font-medium text-sky-300 mb-3">
         ⚡ Número Radiónico (5-6 dígitos) - <span className="text-yellow-400 font-semibold">CÓDIGO ÚNICO IMPORTANTE</span>:
       </label>
-      <div className="bg-gradient-to-r from-yellow-100 to-amber-100 border-2 border-yellow-400 rounded-lg px-4 py-3 flex items-center gap-3 shadow-lg">
-        <span className="text-yellow-600 text-2xl">⚡</span>
+      <div className="bg-gradient-to-r from-yellow-100 to-amber-100 border-2 border-yellow-400 rounded-lg px-2 py-3 flex items-center gap-2 shadow-lg mb-2">
+        <span className="text-yellow-600 text-xl">⚡</span>
         <input
           type="text"
           id="numeroRadionico"
           name="numeroRadionico"
           value={value}
           onChange={(e) => updateAnimalInfo({ numeroRadionico: e.target.value } as Partial<AnimalInfo>)}
-          className="flex-1 font-bold text-xl text-yellow-800 bg-transparent border-none outline-none placeholder-yellow-600"
+          className="flex-1 font-semibold text-lg text-yellow-800 bg-transparent border-none outline-none placeholder-yellow-600 min-h-[48px]"
           placeholder="Ej: 12345"
         />
-        <span className="text-yellow-600 text-sm font-medium">Código único</span>
+        <span className="hidden sm:inline text-yellow-600 text-xs font-medium">Código único</span>
       </div>
       <p className="text-sm text-yellow-300 mt-2 italic">
         ⚠️ Este número es fundamental para el seguimiento radiónico. Anótalo cuidadosamente.
