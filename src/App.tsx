@@ -73,6 +73,31 @@ const getFlorDescription = (flor: FlorBach): string => {
   return `${mainPurpose} ${details}`;
 };
 
+const AnimatedStep: React.FC<{ children: React.ReactNode, stepKey: string }> = ({ children, stepKey }) => {
+  const [prevKey, setPrevKey] = useState(stepKey);
+  const [fade, setFade] = useState(true);
+
+  React.useEffect(() => {
+    if (stepKey !== prevKey) {
+      setFade(false);
+      const timeout = setTimeout(() => {
+        setPrevKey(stepKey);
+        setFade(true);
+      }, 80);
+      return () => clearTimeout(timeout);
+    }
+  }, [stepKey, prevKey]);
+
+  return (
+    <div
+      key={prevKey}
+      className={`transition-opacity duration-100 ease-in-out ${fade ? 'opacity-100' : 'opacity-0'}`}
+    >
+      {children}
+    </div>
+  );
+};
+
 const App: React.FC = () => {
   const [currentStep, setCurrentStep] = useState<Paso>(Paso.Inicio);
   const [diagnostico, setDiagnostico] = useState<DiagnosticoCompleto>(initialDiagnostico);
@@ -1098,22 +1123,23 @@ const App: React.FC = () => {
   const isNextButtonDisabled = currentStep === Paso.TraumaScreening && diagnostico.traumaDetectadoConfirmado === undefined;
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center py-10">
+    <div className="min-h-screen flex flex-col items-center justify-center py-10 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 text-slate-100">
       <div className="container mx-auto p-4 md:p-0 w-full max-w-3xl">
         {/* Botón Volver al Inicio - visible en todos los pasos excepto el inicio */}
         {currentStep !== Paso.Inicio && (
           <div className="mb-6 text-center">
             <button
               onClick={() => setCurrentStep(Paso.Inicio)}
-              className="px-4 py-2 bg-slate-600 hover:bg-slate-700 text-white font-medium rounded-lg shadow-md transition duration-150 ease-in-out text-sm"
+              className="px-4 py-2 bg-slate-700 hover:bg-slate-800 text-white font-medium rounded-lg shadow-md transition duration-150 ease-in-out text-sm border border-slate-600"
             >
               ← Volver al Inicio
             </button>
           </div>
         )}
-        
         <div className="mb-10">
+          <AnimatedStep stepKey={String(currentStep)}>
             {renderCurrentStep()}
+          </AnimatedStep>
         </div>
         {currentStep !== Paso.Inicio && (
           <NavButtons
