@@ -570,7 +570,7 @@ const App: React.FC = () => {
                 alt="Animal radionico" 
                 className="rounded-lg shadow-lg mx-auto mb-6 w-full max-w-md h-auto object-cover" 
             />
-            <h1 className="text-5xl font-bold text-sky-400 mb-4">{TITULO_APP}</h1>
+            <h1 className="text-5xl font-bold text-sky-400 mb-4">Protocolo de Diagnóstico Radiónico para Animales</h1>
             <p className="text-xl text-slate-300 mb-2">{VERSION_APP}</p>
             <p className="text-lg text-slate-400 mb-8">Desarrollado por: Dr. Miguel Ojeda Rios</p>
             <p className="text-xl text-slate-300 mb-8">Bienvenido al asistente interactivo para el diagnóstico radiónico en animales, ahora con módulo de trauma integrado.</p>
