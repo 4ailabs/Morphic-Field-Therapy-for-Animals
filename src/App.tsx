@@ -300,7 +300,7 @@ const App: React.FC = () => {
     content += `Fecha y Hora de Generación: ${fechaHora}\n`;
     content += `=====================================\n\n`;
 
-    content += `DATOS BÁSICOS DEL ANIMAL (Manual V4.0 - Pasos 1 & 2)\n`;
+    content += `DATOS BÁSICOS DEL ANIMAL (Pasos 1 & 2)\n`;
     content += `------------------------------------\n`;
     content += `Número Radiónico: ${finalAnimalInfo.numeroRadionico}\n`;
     content += `Nombre: ${finalAnimalInfo.nombre}\n`;
@@ -314,19 +314,19 @@ const App: React.FC = () => {
     content += `Cambios Recientes: ${finalAnimalInfo.cambiosRecientes}\n\n`;
 
     if (traumaEvaluado) { 
-        content += `Evaluación de Trauma Previo (Manual V4.0 - Paso 3)\n`;
+        content += `Evaluación de Trauma Previo (Paso 3)\n`;
         content += `------------------------------------\n`;
         content += `¿Animal ha experimentado trauma significativo?: ${traumaDetectadoConfirmado ? 'Sí' : 'No'}\n`;
         if (traumaDetectadoConfirmado) {
             const traumasActivos = tiposTraumaGeneral.filter(t => t.activo);
             if (traumasActivos.length > 0) {
-                content += `Tipos de Trauma Identificados (Manual V4.0 - Paso 3.1):\n`;
+                content += `Tipos de Trauma Identificados (Paso 3.1):\n`;
                 traumasActivos.forEach(t => {
                     content += `  - ${t.tipo} (Nivel de Impacto: ${t.nivelImpacto}/10)\n`;
                 });
             }
             if (cronologiaTrauma) { 
-                content += `Cronología del Trauma (Manual V4.0 - Paso 3.2):\n`;
+                content += `Cronología del Trauma (Paso 3.2):\n`;
                 content += `  - Edad cuando ocurrió: ${cronologiaTrauma.edadCuandoOcurrio || 'N/A'}\n`;
                 content += `  - Duración del trauma: ${cronologiaTrauma.duracionDelTrauma || 'N/A'}\n`;
                 content += `  - Tiempo desde el rescate: ${cronologiaTrauma.tiempoDesdeRescate || 'N/A'}\n`;
@@ -337,7 +337,7 @@ const App: React.FC = () => {
     }
 
     if (instintosBloqueados.some(ib => ib.activo)) {
-        content += `Instintos Bloqueados (Manual V4.0 - Paso 4)\n`;
+        content += `Instintos Bloqueados (Paso 4)\n`;
         content += `------------------------------------\n`;
         instintosBloqueados.filter(ib => ib.activo).forEach(ib => {
             const instintoData = INSTINTOS_PRIMARIOS_DATA.find(ip => ip.id === ib.instintoId);
@@ -348,7 +348,7 @@ const App: React.FC = () => {
     }
 
     if (conflictosDueno.some(c => c.activo)) {
-        content += `Conflictos con Dueño (Activos) (Manual V4.0 - Paso 5)\n`;
+        content += `Conflictos con Dueño (Activos) (Paso 5)\n`;
         content += `------------------------------------\n`;
         conflictosDueno.filter(c => c.activo).forEach(c => {
             content += `- ${c.tipo} (Intensidad: ${c.intensidad})\n`;
@@ -357,7 +357,7 @@ const App: React.FC = () => {
     }
 
     if (memoriasLugar.some(m => m.activo) || zonasHogarAfectadas.length > 0) {
-        content += `Influencias del Lugar (Activas) (Manual V4.0 - Paso 6)\n`;
+        content += `Influencias del Lugar (Activas) (Paso 6)\n`;
         content += `------------------------------------\n`;
         memoriasLugar.filter(m => m.activo).forEach(m => {
             content += `- ${m.memoria} (Intensidad: ${m.intensidad})\n`;
@@ -369,7 +369,7 @@ const App: React.FC = () => {
     }
     
     if (necesidadesBiologicasFiltradasParaCarta.some(n => !n.satisfecha)) {
-        content += `Necesidades Biológicas No Satisfechas (${finalAnimalInfo.especie}) (Manual V4.0 - Paso 7)\n`;
+        content += `Necesidades Biológicas No Satisfechas (${finalAnimalInfo.especie}) (Paso 7)\n`;
         content += `------------------------------------\n`;
         necesidadesBiologicasFiltradasParaCarta.filter(n => !n.satisfecha).forEach(n => {
             content += `- ${n.necesidad} (Carencia: ${n.intensidadNoSatisfecha})\n`;
@@ -377,7 +377,7 @@ const App: React.FC = () => {
         content += `\n`;
     }
 
-    content += `Protocolo Aplicado (Manual V4.0 - Pasos 8, 9, 10)\n`;
+    content += `Protocolo Aplicado (Pasos 8, 9, 10)\n`;
     content += `------------------------------------\n`;
     content += `Comando Integrado: ${finalSanacion.comandoIntegrado || 'No ingresado'}\n`;
     content += `Flores Seleccionadas: ${finalSanacion.flores.map(f => `${f.nombre} (T${f.tasa})`).join(', ') || 'Ninguna'}\n`;
@@ -562,7 +562,7 @@ const App: React.FC = () => {
         const { animalInfo } = diagnostico;
         return (
           <div className="p-6 bg-slate-800 rounded-xl shadow-2xl">
-            <h2 className="text-3xl font-semibold text-sky-400 mb-6">Identificación Animal Completa (Pasos 1 & 2 del Manual)</h2>
+            <h2 className="text-3xl font-semibold text-sky-400 mb-6">Paso 1 y 2</h2>
             {renderInput("Nombre del Animal", "nombre", animalInfo.nombre)}
             {renderInput("Especie", "especie", animalInfo.especie, "select", ESPECIES_ANIMALES)}
             {renderInput("Raza/Subespecie", "razaSubespecie", animalInfo.razaSubespecie)}
@@ -924,7 +924,7 @@ const App: React.FC = () => {
           <div className="p-6 bg-slate-800 rounded-xl shadow-2xl">
             <h2 className="text-3xl font-semibold text-sky-400 mb-6">Paso 10: Protocolo Final y Duración</h2>
             <div className="mb-6">
-              <h3 className="text-2xl font-medium text-fuchsia-400 mb-1">Comando Integrado (Manual):</h3>
+              <h3 className="text-2xl font-medium text-fuchsia-400 mb-1">Comando Integrado:</h3>
               <textarea value={sanacion.comandoIntegrado} onChange={(e) => handleComandoIntegradoChange(e.target.value)} rows={4} className="w-full p-3 bg-slate-700 border border-slate-600 rounded-md shadow-sm focus:ring-sky-500 focus:border-sky-500 placeholder-slate-400 text-base" placeholder="Escriba aquí el comando integrado, combinando flores y comandos específicos si es necesario..."/>
             </div>
             <div>
@@ -962,7 +962,7 @@ const App: React.FC = () => {
             <h2 className="text-4xl font-bold text-center text-sky-400 mb-8">Expediente Radiónico Animal</h2>
             <div className="space-y-6">
                 <div className="bg-slate-850 p-5 rounded-lg shadow">
-                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Datos Básicos del Animal (Manual V4.0 - Pasos 1 & 2)</h3>
+                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Datos Básicos del Animal (Pasos 1 & 2)</h3>
                     <p className="text-lg"><strong>Número Radiónico:</strong> <span className="font-bold text-xl text-yellow-400">{finalAnimalInfoCR.numeroRadionico}</span></p>
                     <p className="text-lg"><strong>Nombre:</strong> {finalAnimalInfoCR.nombre}</p>
                     <p className="text-lg"><strong>Especie:</strong> {finalAnimalInfoCR.especie}, <strong>Raza/Subespecie:</strong> {finalAnimalInfoCR.razaSubespecie}</p>
@@ -972,7 +972,10 @@ const App: React.FC = () => {
                 
                 {traumaEvaluadoCR && (
                 <div className="bg-slate-850 p-5 rounded-lg shadow">
-                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Evaluación de Trauma (Manual V4.0 - Paso 3)</h3>
+                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Evaluación de Trauma (Paso 3)</h3>
+                    <p className="text-lg text-slate-300 mb-6">
+                      Pregunta de screening: ¿Este animal ha experimentado trauma significativo que afecta sus instintos naturales?
+                    </p>
                     <p className="text-lg"><strong>¿Animal ha experimentado trauma significativo?:</strong> {traumaDetectadoConfirmadoCR ? 'Sí' : 'No'}</p>
                     {traumaDetectadoConfirmadoCR && tiposTraumaGeneralCR.filter(t => t.activo).length > 0 && (
                         <>
@@ -1001,7 +1004,7 @@ const App: React.FC = () => {
 
                 {instintosBloqueadosCR.some(ib => ib.activo) && (
                 <div className="bg-slate-850 p-5 rounded-lg shadow">
-                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Instintos Bloqueados (Manual V4.0 - Paso 4)</h3>
+                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Instintos Bloqueados (Paso 4)</h3>
                     <ul className="list-disc list-inside pl-4 text-base space-y-1">
                     {instintosBloqueadosCR.filter(ib => ib.activo).map(ib => {
                         const instintoData = INSTINTOS_PRIMARIOS_DATA.find(ip => ip.id === ib.instintoId);
@@ -1014,7 +1017,7 @@ const App: React.FC = () => {
                 
                 {conflictosDuenoCR.some(c => c.activo) && (
                 <div className="bg-slate-850 p-5 rounded-lg shadow">
-                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Conflictos con Dueño (Activos) (Manual V4.0 - Paso 5)</h3>
+                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Conflictos con Dueño (Activos) (Paso 5)</h3>
                     <ul className="list-disc list-inside pl-4 text-base space-y-1">
                     {conflictosDuenoCR.filter(c => c.activo).map(c => <li key={c.id}>{c.tipo} (Intensidad: {c.intensidad})</li>)}
                     </ul>
@@ -1023,7 +1026,7 @@ const App: React.FC = () => {
 
                 {(memoriasLugarCR.some(m => m.activo) || zonasHogarAfectadasCR.length > 0) && (
                 <div className="bg-slate-850 p-5 rounded-lg shadow">
-                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Influencias del Lugar (Activas) (Manual V4.0 - Paso 6)</h3>
+                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Influencias del Lugar (Activas) (Paso 6)</h3>
                      <ul className="list-disc list-inside pl-4 text-base space-y-1">
                     {memoriasLugarCR.filter(m => m.activo).map(m => <li key={m.id}>{m.memoria} (Intensidad: {m.intensidad})</li>)}
                     </ul>
@@ -1033,7 +1036,7 @@ const App: React.FC = () => {
 
                 {necesidadesBiologicasFiltradasParaCartaCR.some(n => !n.satisfecha) && (
                  <div className="bg-slate-850 p-5 rounded-lg shadow">
-                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Necesidades Biológicas No Satisfechas ({finalAnimalInfoCR.especie}) (Manual V4.0 - Paso 7)</h3>
+                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Necesidades Biológicas No Satisfechas ({finalAnimalInfoCR.especie}) (Paso 7)</h3>
                     <ul className="list-disc list-inside pl-4 text-base space-y-1">
                     {necesidadesBiologicasFiltradasParaCartaCR.filter(n => !n.satisfecha).map(n => <li key={n.id}>{n.necesidad} (Carencia: {n.intensidadNoSatisfecha})</li>)}
                     </ul>
@@ -1041,7 +1044,7 @@ const App: React.FC = () => {
                 )}
                 
                 <div className="bg-slate-850 p-5 rounded-lg shadow">
-                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Protocolo Aplicado (Manual V4.0 - Pasos 8, 9, 10)</h3>
+                    <h3 className="text-2xl font-semibold text-fuchsia-400 mb-3">Protocolo Aplicado (Pasos 8, 9, 10)</h3>
                     <p className="text-lg"><strong>Comando Integrado:</strong> {finalSanacionCR.comandoIntegrado || 'No ingresado'}</p>
                     <p className="text-lg"><strong>Flores Seleccionadas:</strong> {finalSanacionCR.flores.map(f => `${f.nombre} (T${f.tasa})`).join(', ') || 'Ninguna'}</p>
                     <p className="text-lg"><strong>Comandos Específicos:</strong> {finalSanacionCR.comandos.length > 0 ? finalSanacionCR.comandos.map(c => c.id).join(', ') : 'Ninguno'}</p>

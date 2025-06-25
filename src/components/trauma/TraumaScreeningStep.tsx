@@ -1,4 +1,3 @@
-
 import React from 'react';
 
 interface TraumaScreeningStepProps {
@@ -14,7 +13,7 @@ const TraumaScreeningStep: React.FC<TraumaScreeningStepProps> = ({ onResponse })
         <span className="italic text-yellow-500 text-lg ml-1">NUEVO</span>
       </h2>
       <p className="text-lg text-slate-300 mb-6">
-        Pregunta de screening: ¿Este animal ha experimentado trauma significativo que afecta sus instintos naturales? (Manual V4.0, p.7)
+        Pregunta de screening: ¿Este animal ha experimentado trauma significativo que afecta sus instintos naturales?
       </p>
       <div className="flex justify-around mt-8">
         <button

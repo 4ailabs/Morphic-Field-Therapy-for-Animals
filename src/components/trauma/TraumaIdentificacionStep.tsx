@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { TipoTraumaGeneral, CronologiaTrauma } from '../../types';
 import { CRONOLOGIA_TRAUMA_FIELDS } from '../../constants';
@@ -20,7 +19,7 @@ const TraumaIdentificacionStep: React.FC<TraumaIdentificacionStepProps> = ({
 }) => {
   return (
     <div className="p-6 bg-slate-800 rounded-xl shadow-2xl">
-      <h2 className="text-3xl font-semibold text-sky-400 mb-6">Paso 3.1 &amp; 3.2: Tipo de Trauma, Impacto y Cronología (Manual V4.0, p.8)</h2>
+      <h2 className="text-3xl font-semibold text-sky-400 mb-6">Paso 3.1 & 3.2: Tipo de Trauma, Impacto y Cronología</h2>
       
       <h3 className="text-2xl font-medium text-fuchsia-400 mb-3">3.1 Tipos de Trauma y Nivel de Impacto</h3>
       <p className="text-sm text-slate-400 mb-4">Seleccione los tipos de trauma que apliquen y ajuste el nivel de impacto (0-10).</p>

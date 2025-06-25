@@ -1,4 +1,3 @@
-
 export interface AnimalInfo {
   nombre: string;
   especie: string; 
@@ -114,16 +113,16 @@ export interface ComandoEspecifico {
 export enum Paso {
   Inicio = "INICIO",
   AnimalInfo = "ANIMAL_INFO", // Pasos 1 & 2
-  TraumaScreening = "TRAUMA_SCREENING", // Paso 3 (V4.0)
-  TraumaIdentificacion = "TRAUMA_IDENTIFICACION", // Pasos 3.1, 3.2 (V4.0)
-  DiagnosticoInstintos = "DIAGNOSTICO_INSTINTOS", // Paso 4 (V4.0)
-  ConflictosDueno = "CONFLICTOS_DUENO", // Paso 5 (V4.0)
-  InfluenciaLugar = "INFLUENCIA_LUGAR", // Paso 6 (V4.0)
-  NecesidadesBiologicas = "NECESIDADES_BIOLOGICAS", // Paso 7 (V4.0)
-  RecursosSanacionFlores = "RECURSOS_SANACION_FLORES", // Paso 8 (V4.0)
-  RecursosSanacionComandos = "RECURSOS_SANACION_COMANDOS", // Paso 9 (V4.0)
-  RecursosSanacionProtocolo = "RECURSOS_SANACION_PROTOCOLO", // Paso 10 (V4.0)
-  CartaRadionica = "CARTA_RADIONICA" // Paso 11 (V4.0) -> Exportación
+  TraumaScreening = "TRAUMA_SCREENING", // Paso 3
+  TraumaIdentificacion = "TRAUMA_IDENTIFICACION", // Pasos 3.1, 3.2
+  DiagnosticoInstintos = "DIAGNOSTICO_INSTINTOS", // Paso 4
+  ConflictosDueno = "CONFLICTOS_DUENO", // Paso 5
+  InfluenciaLugar = "INFLUENCIA_LUGAR", // Paso 6
+  NecesidadesBiologicas = "NECESIDADES_BIOLOGICAS", // Paso 7
+  RecursosSanacionFlores = "RECURSOS_SANACION_FLORES", // Paso 8
+  RecursosSanacionComandos = "RECURSOS_SANACION_COMANDOS", // Paso 9
+  RecursosSanacionProtocolo = "RECURSOS_SANACION_PROTOCOLO", // Paso 10
+  CartaRadionica = "CARTA_RADIONICA" // Paso 11 -> Exportación
 }
 
 export interface SanacionSugerida {
