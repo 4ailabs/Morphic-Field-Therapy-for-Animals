@@ -173,7 +173,12 @@ const exportCartaRadionicaPDF = (diagnostico: DiagnosticoCompleto) => {
   doc.setTextColor(0,0,0);
   doc.text('Contacto: contacto@institutocentrobioenergetica.com', 15, y); y+=6;
   doc.text('Web: www.institutocentrobioenergetica.com', 15, y); y+=6;
-  // Leyenda al pie de página
+  // Pie de página: contacto y web
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+  doc.setTextColor(120, 120, 120);
+  doc.text('contacto@institutocentrobioenergetica.com | www.institutocentrobioenergetica.com', 105, 278, { align: 'center' });
+  // Leyenda de versión
   doc.setFont('helvetica', 'italic');
   doc.setFontSize(10);
   doc.setTextColor(120, 120, 120);
